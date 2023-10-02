@@ -1,0 +1,21 @@
+<div>
+    <mat-sidenav-container class="example-container">
+        <mat-sidenav mode="side" opened>
+            <div class="row">
+                <h1>Liste des protections</h1>
+                <button mat-mini-fab color="warn" (click)="resetProtections(protections._value)">
+                <mat-icon>delete</mat-icon>
+                </button>
+            </div>   
+            <mat-selection-list #protections>
+                <mat-list-option *ngFor="let protection of protectionList" [value]="protection" color="primary"> {{ protection }} </mat-list-option>
+            </mat-selection-list>
+        </mat-sidenav>
+        <mat-sidenav-content>
+            <h2>Offert et refusé : </h2>
+            <p *ngFor="let refusedProtection of protections._value">
+               {{ refusedProtection }} 
+            </p>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>
