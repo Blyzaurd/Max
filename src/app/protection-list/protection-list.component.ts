@@ -15,9 +15,10 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 })
 
 export class ProtectionListComponent {
-  @ViewChild("protections") matList!: MatSelectionList;
+  @ViewChild("protectionsHab") matListHab!: MatSelectionList;
+  @ViewChild("protectionsAuto") matListAuto!: MatSelectionList;
 
-  protectionList : string [] = [
+  protectionHabitationList : string [] = [
     "2040 - Protection juridique",
     "Réclamations pardonnées",
     "3106 - Propriétaire occupant - Couverture maximale",
@@ -39,6 +40,9 @@ export class ProtectionListComponent {
     "2033 - Tremblement de terre",
     "2305 - Sélection Excellence et +",
     "2300 - Sélection Excellence Plus et +",
+  ]
+
+  protectionAutomobileList : string [] = [
     "F.A.Q. N° 34 - Assurance de personnes",
     "2040 - Protection juridique",
     "Réclamations pardonnées",
@@ -53,7 +57,8 @@ export class ProtectionListComponent {
     "F.A.Q. N° 43 F"
   ]
 
-  resetProtections(dwa: any) {
-    this.matList.selectedOptions.clear()
+  resetProtections() {
+    this.matListHab.selectedOptions.clear()
+    this.matListHab.selectedOptions.clear()
   }
 }
