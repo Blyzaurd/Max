@@ -59,6 +59,6 @@ export class ProtectionListComponent {
 
   resetProtections() {
     this.matListHab.selectedOptions.clear()
-    this.matListHab.selectedOptions.clear()
+    this.matListAuto.selectedOptions.clear()
   }
 }
