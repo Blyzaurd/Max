@@ -15,6 +15,23 @@
     justify-content: space-between;
 }
 
+.rowInput {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+}
+
+.column {
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.input {
+    width: 42vh;
+    margin-right: 20px
+}
+
 button {
     margin-right: 8px;
 }
@@ -36,7 +53,7 @@ h3 {
     font-weight: 200;
 }
 
-p {
+.text {
     margin-left: 20px;
     font-size: 16px;
 }

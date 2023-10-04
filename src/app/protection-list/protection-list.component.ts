@@ -1,7 +1,11 @@
 import { NgFor } from '@angular/common';
-import { Component, ViewChild } from '@angular/core';
+import { Component, NgModule, ViewChild } from '@angular/core';
+import { NgModel } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInput, MatInputModule } from '@angular/material/input';
 import { MatListModule, MatSelectionList } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 
@@ -9,8 +13,16 @@ import { MatSidenavModule } from '@angular/material/sidenav';
   selector: 'app-protection-list',
   templateUrl: './protection-list.component.html',
   styleUrls: ['./protection-list.component.scss'],
-  imports: [ MatListModule, MatButtonModule, MatSidenavModule, MatIconModule, NgFor ],
-
+  imports: [ 
+    MatListModule,
+    MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatSidenavModule,
+    MatExpansionModule,
+    MatIconModule,
+    NgFor 
+  ],
   standalone: true
 })
 
@@ -46,7 +58,7 @@ export class ProtectionListComponent {
     "F.A.Q. N° 34 - Assurance de personnes",
     "2040 - Protection juridique",
     "Réclamations pardonnées",
-    "RC 2M",
+    "Chapitre A - Responsabilité civile 2 000 000",
     "FR 500 Chapitre B - Division 2 - Collision ou versement",
     "FR 500 Chapitre B - Division 3 - Accident sans collision ni versement",
     "Chapitre B - Division 2 - Collision ou versement",
@@ -57,8 +69,15 @@ export class ProtectionListComponent {
     "F.A.Q. N° 43 F"
   ]
 
-  resetProtections() {
-    this.matListHab.selectedOptions.clear()
-    this.matListAuto.selectedOptions.clear()
+  resetProtections(whichToDelete: string) {
+    if(whichToDelete === "hab") {
+      this.matListHab.selectedOptions.clear()
+    } else if (whichToDelete === "auto") {
+      this.matListAuto.selectedOptions.clear()
+    } else if (whichToDelete === "all") {
+      this.matListHab.selectedOptions.clear()
+      this.matListAuto.selectedOptions.clear()
+    } else if (whichToDelete === "client") {
+    }
   }
 }

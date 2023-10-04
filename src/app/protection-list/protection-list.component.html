@@ -3,35 +3,93 @@
         <mat-sidenav mode="side" opened>
             <div class="row">
                 <h1>Liste des protections</h1>
-                <button mat-mini-fab color="warn" (click)="resetProtections()">
-                <mat-icon>delete</mat-icon>
-                </button>
-            </div>   
-            <mat-selection-list #protectionsHab>
-                <h3>Habitation</h3>
+                <div>
+                    <button mat-raised-button color="warn" (click)="clientName.value=''; clientDemand.value=''; assuranceImposition.value=''; clientReaction.value=''; complementaryInfo.value=''; toValidate.value='';">Client</button>
+                    <button mat-raised-button color="warn" (click)="resetProtections('hab')">Habitation</button>
+                    <button mat-raised-button color="warn" (click)="resetProtections('auto')">Automobile</button>
+                    <button mat-raised-button color="warn" (click)="resetProtections('all')">Tout</button>
+                </div>
+            </div>
+            <div class="rowInput">
+                <div class="column">
+                    <mat-form-field class="input">
+                        <mat-label>Nom de l'agent</mat-label>
+                        <input matInput placeholder="Ex. Bob Graton" #agentName>
+                    </mat-form-field>
+                    <mat-form-field class="input">
+                        <mat-label>Nom du client</mat-label>
+                        <input matInput placeholder="Ex. Bob Graton" #clientName>
+                    </mat-form-field>
+                    <mat-form-field class="input">
+                        <mat-label>Demande du client</mat-label>
+                        <textarea matInput #clientDemand></textarea>
+                    </mat-form-field>      
+                </div>
+                <div class="column">
+                    <mat-form-field class="input">
+                        <mat-label>Imposition par l'assureur</mat-label>
+                        <textarea matInput #assuranceImposition></textarea>
+                    </mat-form-field>  
+                    <mat-form-field class="input">
+                        <mat-label>Réaction client VS l'offre</mat-label>
+                        <textarea matInput #clientReaction></textarea>
+                    </mat-form-field>
+                    <mat-form-field class="input">
+                        <mat-label>Info complémentaire</mat-label>
+                        <textarea matInput #complementaryInfo></textarea>
+                    </mat-form-field>
+                    <mat-form-field class="input">
+                        <mat-label>À valider</mat-label>
+                        <textarea matInput #toValidate></textarea>
+                    </mat-form-field>
+                </div>
+            </div>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                    Habitation
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
                 <mat-divider></mat-divider>
-                <mat-list-option *ngFor="let protectionHab of protectionHabitationList" [value]="protectionHab" color="primary"> {{ protectionHab }} </mat-list-option>
-            </mat-selection-list>
-            <mat-selection-list #protectionsAuto>
-                <h3>Automobile</h3>
+                <mat-selection-list #protectionsHab>
+                    <mat-list-option *ngFor="let protectionHab of protectionHabitationList" [value]="protectionHab" color="primary"> {{ protectionHab }} </mat-list-option>
+                </mat-selection-list>
+            </mat-expansion-panel>
+            <br>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                    Automobile
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
                 <mat-divider></mat-divider>
-                <mat-list-option *ngFor="let protectionAuto of protectionAutomobileList" [value]="protectionAuto" color="primary"> {{ protectionAuto }} </mat-list-option>
-            </mat-selection-list>
+                <mat-selection-list #protectionsAuto>
+                    <mat-list-option *ngFor="let protectionAuto of protectionAutomobileList" [value]="protectionAuto" color="primary"> {{ protectionAuto }} </mat-list-option>
+                </mat-selection-list>
+            </mat-expansion-panel>
         </mat-sidenav>
         <mat-sidenav-content>
             <h2>Offert et refusé : </h2>
+            <div class="text">{{ agentName.value }} (ROK) * AGENT AFFILIÉ *</div>
+            <div class="text">Parlé à : {{ clientName.value }}</div>
+            <div class="text">Demande du client : {{ clientDemand.value }}</div>
             <h3>Habitation</h3>
             <mat-divider></mat-divider>
             <br>
-            <p *ngFor="let refusedHabProtection of protectionsHab._value">
-               {{ refusedHabProtection }} 
-            </p>
+            <div class="text" *ngFor="let refusedHabProtection of protectionsHab._value">
+                {{ refusedHabProtection }}
+            </div>
+            <br>
             <h3>Automobile</h3>
             <mat-divider></mat-divider>
             <br>
-            <p *ngFor="let refusedAutoProtection of protectionsAuto._value">
-                {{ refusedAutoProtection }} 
-            </p>
+            <div class="text" *ngFor="let refusedAutoProtection of protectionsAuto._value">
+                {{ refusedAutoProtection }}
+            </div>
+            <div class="text">Imposition par l'assureur : {{ assuranceImposition.value }}</div>
+            <div class="text">Réaction client VS l'offre : {{ clientReaction.value }}</div>
+            <div class="text">Info complémentaire : {{ complementaryInfo.value }}</div>
+            <div class="text">À valider : {{ toValidate.value }}</div>
         </mat-sidenav-content>
     </mat-sidenav-container>
 </div>
