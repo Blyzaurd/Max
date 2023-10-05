@@ -17,6 +17,7 @@
     "@angular/core": "^16.2.7",
     "@angular/forms": "^16.2.7",
     "@angular/material": "^16.2.6",
+    "@angular/material-moment-adapter": "^16.2.7",
     "@angular/platform-browser": "^16.2.7",
     "@angular/platform-browser-dynamic": "^16.2.7",
     "@angular/router": "^16.2.7",
@@ -26,6 +27,7 @@
     "angular-material": "^1.2.5",
     "angular-messages": "^1.8.3",
     "mdi": "^2.2.43",
+    "moment": "^2.29.4",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.3"

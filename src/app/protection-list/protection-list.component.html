@@ -3,37 +3,83 @@
         <mat-sidenav mode="side" opened>
             <div class="row">
                 <h1>Liste des protections</h1>
-                <div>
-                    <button mat-raised-button color="warn" (click)="clientName.value=''; clientDemand.value=''; assuranceImposition.value=''; clientReaction.value=''; complementaryInfo.value=''; toValidate.value='';">Client</button>
+                <div class="margin-right">
+                    <button mat-raised-button color="warn" (click)="resetProtections('all'); clientName.value=''; assuranceImposition.value=''; complementaryInfo.value=''; toValidate.value=''; date.value='';">Client</button>
                     <button mat-raised-button color="warn" (click)="resetProtections('hab')">Habitation</button>
                     <button mat-raised-button color="warn" (click)="resetProtections('auto')">Automobile</button>
-                    <button mat-raised-button color="warn" (click)="resetProtections('all')">Tout</button>
+                    <button mat-raised-button color="warn" (click)="resetProtections('all'); clientName.value=''; assuranceImposition.value=''; complementaryInfo.value=''; toValidate.value=''; date.value='';">Tout</button>
                 </div>
             </div>
             <div class="rowInput">
                 <div class="column">
                     <mat-form-field class="input">
                         <mat-label>Nom de l'agent</mat-label>
-                        <input matInput placeholder="Ex. Bob Graton" #agentName>
+                        <input matInput #agentName>
                     </mat-form-field>
+                    <mat-expansion-panel class="input">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                            Nom du cabinet
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <mat-divider></mat-divider>  
+                        <mat-selection-list #cabinet [multiple]="false">
+                            <mat-list-option *ngFor="let cabinet of cabinetList" [value]="cabinet" color="primary"> {{ cabinet }} </mat-list-option>
+                        </mat-selection-list>
+                    </mat-expansion-panel>
+                    <br>
+                    <mat-form-field class="input">
+                        <mat-label>Choose a date</mat-label>
+                        <input matInput [matDatepicker]="picker" #date>
+                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>
                     <mat-form-field class="input">
                         <mat-label>Nom du client</mat-label>
-                        <input matInput placeholder="Ex. Bob Graton" #clientName>
+                        <input matInput #clientName>
                     </mat-form-field>
-                    <mat-form-field class="input">
-                        <mat-label>Demande du client</mat-label>
-                        <textarea matInput #clientDemand></textarea>
-                    </mat-form-field>      
+                    <mat-expansion-panel class="input">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                            Demande du client habitation
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <mat-divider></mat-divider>  
+                        <mat-selection-list #clientDemandHab [multiple]="false">
+                            <mat-list-option *ngFor="let clientDemandHab of clientDemandList" [value]="clientDemandHab" color="primary"> {{ clientDemandHab }} </mat-list-option>
+                        </mat-selection-list>
+                    </mat-expansion-panel>
+                    <br>
+                    <mat-expansion-panel class="input">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                            Demande du client automobile
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <mat-divider></mat-divider>  
+                        <mat-selection-list #clientDemandAuto [multiple]="false">
+                            <mat-list-option *ngFor="let clientDemandAuto of clientDemandList" [value]="clientDemandAuto" color="primary"> {{ clientDemandAuto }} </mat-list-option>
+                        </mat-selection-list>
+                    </mat-expansion-panel>
+                    <br>
                 </div>
                 <div class="column">
                     <mat-form-field class="input">
                         <mat-label>Imposition par l'assureur</mat-label>
                         <textarea matInput #assuranceImposition></textarea>
-                    </mat-form-field>  
-                    <mat-form-field class="input">
-                        <mat-label>Réaction client VS l'offre</mat-label>
-                        <textarea matInput #clientReaction></textarea>
                     </mat-form-field>
+                    <mat-expansion-panel class="input">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                            Réaction du client
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <mat-divider></mat-divider>  
+                        <mat-selection-list #reaction [multiple]="false">
+                            <mat-list-option *ngFor="let reaction of reactionChoicesList" [value]="reaction" color="primary"> {{ reaction }} </mat-list-option>
+                        </mat-selection-list>
+                    </mat-expansion-panel>
+                    <br>
                     <mat-form-field class="input">
                         <mat-label>Info complémentaire</mat-label>
                         <textarea matInput #complementaryInfo></textarea>
@@ -44,7 +90,7 @@
                     </mat-form-field>
                 </div>
             </div>
-            <mat-expansion-panel>
+            <mat-expansion-panel class="margin-left">
                 <mat-expansion-panel-header>
                     <mat-panel-title>
                     Habitation
@@ -56,7 +102,7 @@
                 </mat-selection-list>
             </mat-expansion-panel>
             <br>
-            <mat-expansion-panel>
+            <mat-expansion-panel class="margin-left">
                 <mat-expansion-panel-header>
                     <mat-panel-title>
                     Automobile
@@ -70,24 +116,45 @@
         </mat-sidenav>
         <mat-sidenav-content>
             <h2>Offert et refusé : </h2>
-            <div class="text">{{ agentName.value }} (ROK) * AGENT AFFILIÉ *</div>
-            <div class="text">Parlé à : {{ clientName.value }}</div>
-            <div class="text">Demande du client : {{ clientDemand.value }}</div>
             <h3>Habitation</h3>
             <mat-divider></mat-divider>
             <br>
+            <div class="text" *ngFor="let cabin of cabinet._value">
+                {{ agentName.value }} ({{ cabin }}) * AGENT AFFILIÉ *
+            </div>
+            <div class="text">{{ date.value }}</div>
+            <div class="text">Parlé à : {{ clientName.value }}</div>
+            <div class="text" *ngFor="let demandHab of clientDemandHab._value">
+                Demande du client : {{ demandHab }}
+            </div>
             <div class="text" *ngFor="let refusedHabProtection of protectionsHab._value">
                 {{ refusedHabProtection }}
             </div>
+            <div class="text">Imposition par l'assureur : {{ assuranceImposition.value }}</div>
+            <div class="text" *ngFor="let react of reaction._value">
+                Réaction client VS l'offre : {{ react }}
+            </div>
+            <div class="text">Info complémentaire : {{ complementaryInfo.value }}</div>
+            <div class="text">À valider : {{ toValidate.value }}</div>
             <br>
             <h3>Automobile</h3>
             <mat-divider></mat-divider>
             <br>
+            <div class="text" *ngFor="let cabin of cabinet._value">
+                {{ agentName.value }} ({{ cabin }}) * AGENT AFFILIÉ *
+            </div>
+            <div class="text">{{ date.value }}</div>
+            <div class="text">Parlé à : {{ clientName.value }}</div>
+            <div class="text" *ngFor="let demandAuto of clientDemandAuto._value">
+                Demande du client : {{ demandAuto }}
+            </div>
             <div class="text" *ngFor="let refusedAutoProtection of protectionsAuto._value">
                 {{ refusedAutoProtection }}
             </div>
             <div class="text">Imposition par l'assureur : {{ assuranceImposition.value }}</div>
-            <div class="text">Réaction client VS l'offre : {{ clientReaction.value }}</div>
+            <div class="text" *ngFor="let react of reaction._value">
+                Réaction client VS l'offre : {{ react }}
+            </div>
             <div class="text">Info complémentaire : {{ complementaryInfo.value }}</div>
             <div class="text">À valider : {{ toValidate.value }}</div>
         </mat-sidenav-content>

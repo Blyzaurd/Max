@@ -1,11 +1,12 @@
 import { NgFor } from '@angular/common';
-import { Component, NgModule, ViewChild } from '@angular/core';
-import { NgModel } from '@angular/forms';
+import { Component, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { MatInput, MatInputModule } from '@angular/material/input';
+import { MatInputModule } from '@angular/material/input';
 import { MatListModule, MatSelectionList } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 
@@ -21,6 +22,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     MatSidenavModule,
     MatExpansionModule,
     MatIconModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
     NgFor 
   ],
   standalone: true
@@ -29,6 +32,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 export class ProtectionListComponent {
   @ViewChild("protectionsHab") matListHab!: MatSelectionList;
   @ViewChild("protectionsAuto") matListAuto!: MatSelectionList;
+  @ViewChild("reactionChoices") reactionChoices!: MatSelectionList;
+  @ViewChild("clientDemandHab") clientDemandHab!: MatSelectionList;
+  @ViewChild("clientDemandAuto") clientDemandAuto!: MatSelectionList;
 
   protectionHabitationList : string [] = [
     "2040 - Protection juridique",
@@ -69,15 +75,35 @@ export class ProtectionListComponent {
     "F.A.Q. N° 43 F"
   ]
 
+  reactionChoicesList : string [] = [
+    "Plus chère",
+    "Intéressé",
+    "Acceptée"
+  ]
+
+  clientDemandList : string [] = [
+    "Renouvellement",
+    "Première assurance",
+    "Nouvel achat"
+  ]
+
+  cabinetList : string [] = [
+    "ROK",
+    "KEVLAR"
+  ]
+
   resetProtections(whichToDelete: string) {
     if(whichToDelete === "hab") {
-      this.matListHab.selectedOptions.clear()
+      this.matListHab.selectedOptions.clear();
     } else if (whichToDelete === "auto") {
-      this.matListAuto.selectedOptions.clear()
+      this.matListAuto.selectedOptions.clear();
     } else if (whichToDelete === "all") {
-      this.matListHab.selectedOptions.clear()
-      this.matListAuto.selectedOptions.clear()
+      this.matListHab.selectedOptions.clear();
+      this.matListAuto.selectedOptions.clear();
     } else if (whichToDelete === "client") {
+      this.reactionChoices.selectedOptions.clear();
+      this.clientDemandHab.selectedOptions.clear();
+      this.clientDemandAuto.selectedOptions.clear();
     }
   }
 }
